@@ -1,0 +1,21 @@
+services:
+  wiki:
+    image: mediawiki
+    container_name: wiki
+    ports:
+      - 8080:80
+    links:
+      - db
+#    volumes: [ ~/LocalSettings.php:/var/www/html/LocalSettings.php ]
+  db:
+    image: mysql
+    container_name: db
+    hostname: db
+    environment:
+      MYSQL_DATABASE: mediawiki
+      MYSQL_USER: wiki
+      MYSQL_PASSWORD: DEP@ssw0rd
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+    volumes: [ dbvolume:/var/lib/mysql ]
+volumes:
+  dbvolume:
